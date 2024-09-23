@@ -1,0 +1,14 @@
+{
+  "name": "guesslang-bun",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@vscode/vscode-languagedetection": "^1.0.22"
+  }
+}
