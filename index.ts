@@ -1,4 +1,5 @@
 import { ModelOperations } from "@vscode/vscode-languagedetection";
+import model from "./model.json" with { type: "file" };
 
 if (Bun.argv.length !== 3) {
   console.error("Usage: guesslang-bun <file>");
@@ -8,7 +9,11 @@ if (Bun.argv.length !== 3) {
 const filePath = Bun.argv[2];
 const fileContents = await Bun.file(filePath).text();
 
-const modelOperations = new ModelOperations();
+const modelOperations = new ModelOperations({
+  modelJsonLoaderFunc: async (): Promise<{[key: string]: any}> => {
+    return await Bun.file(model).json();
+  }
+});
 
 const result = await modelOperations.runModel(fileContents);
 

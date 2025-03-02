@@ -6,10 +6,16 @@ To install dependencies:
 bun install
 ```
 
+Copy the model.json file from the vscode-languagedetection package:
+
+```bash
+cp node_modules/@vscode/vscode-languagedetection/model/model.json .
+```
+
 To build as a standalone executable:
 
 ```bash
-bun build index.ts --compile --outfile guesslang-bun
+bun build index.ts --compile --outfile guesslang-bun --assets model.json
 ```
 
 To run the executable:
