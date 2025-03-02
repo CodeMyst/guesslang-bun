@@ -11,7 +11,7 @@ const fileContents = await Bun.file(filePath).text();
 
 const modelOperations = new ModelOperations({
   modelJsonLoaderFunc: async (): Promise<{[key: string]: any}> => {
-    return await Bun.file(model).json();
+    return model;
   }
 });
 
