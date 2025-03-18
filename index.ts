@@ -9,7 +9,15 @@ if (Bun.argv.length !== 3) {
 }
 
 const filePath = Bun.argv[2];
-const fileContents = await Bun.file(filePath).text();
+
+const bunFile = Bun.file(filePath);
+
+if (!(await bunFile.exists())) {
+  console.error("Provided file doesn't exist.");
+  process.exit(1);
+}
+
+const fileContents = await bunFile.text();
 
 const modelOperations = new ModelOperations({
   modelJsonLoaderFunc: async (): Promise<{[key: string]: any}> => {
@@ -21,5 +29,10 @@ const modelOperations = new ModelOperations({
 });
 
 const result = await modelOperations.runModel(fileContents);
+
+if (result.length === 0) {
+  console.error("Couldn't determine the language.");
+  process.exit(1);
+}
 
 console.log(result[0].languageId);
